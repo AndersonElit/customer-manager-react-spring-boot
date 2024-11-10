@@ -20,6 +20,8 @@ subprojects {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'io.projectreactor:reactor-core'
+        implementation 'io.projectreactor:reactor-test'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 }
@@ -29,14 +31,14 @@ tasks.register('startProject') {
     description = 'Starts the Spring Boot application'
 }
 
-startProject.finalizedBy(':entry-points:bootRun')
+startProject.finalizedBy(':rest-api:bootRun')
 
 tasks.register('buildProject') {
     group = 'application'
     description = 'conpile the project'
 }
 
-buildProject.finalizedBy(':entry-points:build')
+buildProject.finalizedBy(':rest-api:build')
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
