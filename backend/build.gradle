@@ -24,6 +24,20 @@ subprojects {
     }
 }
 
+tasks.register('startProject') {
+    group = 'application'
+    description = 'Starts the Spring Boot application'
+}
+
+startProject.finalizedBy(':entry-points:bootRun')
+
+tasks.register('buildProject') {
+    group = 'application'
+    description = 'conpile the project'
+}
+
+buildProject.finalizedBy(':entry-points:build')
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
