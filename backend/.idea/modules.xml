@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/application/gradle_spring_hexagonal_architecture.application.main.iml" filepath="$PROJECT_DIR$/.idea/modules/application/gradle_spring_hexagonal_architecture.application.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/gradle_spring_hexagonal_architecture.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/gradle_spring_hexagonal_architecture.domain.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/gradle_spring_hexagonal_architecture.entry-points.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/gradle_spring_hexagonal_architecture.entry-points.main.iml" />
+    </modules>
+  </component>
+</project>
