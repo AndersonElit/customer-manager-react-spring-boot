@@ -11,8 +11,9 @@ plugins {
 }
 
 rootProject.name = 'gradle_spring_hexagonal_architecture'
+
 include 'domain', 'application'
 include 'rest-api'
 project(':rest-api').projectDir = file('infrastructure/entry-points/rest-api')
-include 'my-sql-db'
-project(':my-sql-db').projectDir = file('infrastructure/driven-adapters/my-sql-db')
+include 'pgs-customer-db'
+project(':pgs-customer-db').projectDir = file('infrastructure/driven-adapters/pgs-customer-db')

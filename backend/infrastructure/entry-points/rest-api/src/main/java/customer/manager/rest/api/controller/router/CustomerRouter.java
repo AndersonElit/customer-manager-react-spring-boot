@@ -14,7 +14,7 @@ public class CustomerRouter {
     public RouterFunction<ServerResponse> route(CustomerHandler customerHandler) {
         return RouterFunctions
                 .route()
-                .GET("/hello", request -> customerHandler.hello())
+                .POST("/customer/save", customerHandler::save)
                 .build();
     }
 

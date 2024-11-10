@@ -3,5 +3,11 @@ plugins {
 }
 
 dependencies {
+    implementation project(':pgs-customer-db')
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}
+
+bootJar {
+    enabled = true
 }
