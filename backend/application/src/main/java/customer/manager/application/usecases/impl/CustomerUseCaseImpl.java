@@ -1,5 +1,7 @@
 package customer.manager.application.usecases.impl;
 
+import customer.manager.application.request.CustomerRequest;
+import customer.manager.application.response.CustomerResponse;
 import customer.manager.application.usecases.CustomerUseCase;
 import customer.manager.domain.model.Customer;
 import customer.manager.domain.ports.CustomerRepository;
@@ -12,8 +14,16 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
     private final CustomerRepository customerRepository;
 
     @Override
-    public Mono<Customer> save(Customer customer) {
-        return customerRepository.save(customer);
+    public Mono<CustomerResponse> save(CustomerRequest customerRequest) {
+        return customerRepository.save(Customer.builder()
+                        .firstName(customerRequest.getFirstName())
+                        .lastName(customerRequest.getLastName())
+                .build())
+                .map(savedCustomer -> CustomerResponse.builder()
+                        .id(savedCustomer.getId())
+                        .firstName(savedCustomer.getFirstName())
+                        .lastName(savedCustomer.getLastName())
+                        .build());
     }
 
 }
