@@ -1,4 +1,4 @@
-package customer.manager.application.response;
+package customer.manager.domain.response;
 
 import lombok.*;
 

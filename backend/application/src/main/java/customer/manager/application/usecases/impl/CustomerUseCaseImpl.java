@@ -1,7 +1,7 @@
 package customer.manager.application.usecases.impl;
 
-import customer.manager.application.request.CustomerRequest;
-import customer.manager.application.response.CustomerResponse;
+import customer.manager.domain.request.CustomerRequest;
+import customer.manager.domain.response.CustomerResponse;
 import customer.manager.application.usecases.CustomerUseCase;
 import customer.manager.domain.model.Customer;
 import customer.manager.domain.ports.CustomerRepository;

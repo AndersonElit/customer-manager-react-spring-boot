@@ -1,4 +1,4 @@
-package customer.manager.application.request;
+package customer.manager.domain.response;
 
 import lombok.*;
 
@@ -7,7 +7,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequest {
+public class CustomerResponse {
+    private Long id;
     private String firstName;
     private String lastName;
 }

@@ -1,8 +1,7 @@
 package customer.manager.rest.api.controller.handler;
 
-import customer.manager.application.request.CustomerRequest;
+import customer.manager.domain.request.CustomerRequest;
 import customer.manager.application.usecases.CustomerUseCase;
-import customer.manager.domain.model.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;

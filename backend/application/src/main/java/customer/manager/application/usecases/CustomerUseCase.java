@@ -1,8 +1,7 @@
 package customer.manager.application.usecases;
 
-import customer.manager.application.request.CustomerRequest;
-import customer.manager.application.response.CustomerResponse;
-import customer.manager.domain.model.Customer;
+import customer.manager.domain.request.CustomerRequest;
+import customer.manager.domain.response.CustomerResponse;
 import reactor.core.publisher.Mono;
 
 public interface CustomerUseCase {
