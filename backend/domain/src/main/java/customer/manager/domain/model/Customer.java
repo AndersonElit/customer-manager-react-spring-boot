@@ -1,4 +1,4 @@
-package customer.manager.pgs.customer.db;
+package customer.manager.domain.model;
 
 import lombok.*;
 
