@@ -1,5 +1,6 @@
 package customer.manager.pgs.customer.db.adapter;
 
+import customer.manager.application.mapper.Mapper;
 import customer.manager.domain.model.Customer;
 import customer.manager.domain.ports.CustomerRepository;
 import customer.manager.pgs.customer.db.entities.CustomerEntity;
@@ -16,18 +17,8 @@ public class CustomerAdapter implements CustomerRepository {
 
     @Override
     public Mono<Customer> save(Customer customer) {
-        return customerRepository.save(CustomerEntity.builder()
-                        .id(customer.getId())
-                        .firstName(customer.getFirstName())
-                        .lastName(customer.getLastName())
-                        .build())
-                .map(customerEntity ->
-                        Customer.builder()
-                                .id(customerEntity.getId())
-                                .firstName(customerEntity.getFirstName())
-                                .lastName(customerEntity.getLastName())
-                                .build()
-                );
+        return customerRepository.save(Mapper.map(customer, CustomerEntity.class))
+                .map(customerEntity -> Mapper.map(customerEntity, Customer.class));
     }
 
 }
