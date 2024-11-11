@@ -1,17 +1,19 @@
 package customer.manager.rest.api.config;
 
-import customer.manager.application.usecases.CustomerUseCase;
-import customer.manager.application.usecases.impl.CustomerUseCaseImpl;
-import customer.manager.domain.ports.CustomerRepository;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 
 @Configuration
+@ComponentScan(
+        basePackages = "customer.manager.application.usecases",
+        includeFilters = {
+                @ComponentScan.Filter(
+                        type = FilterType.REGEX,
+                        pattern = ".*UseCaseImpl?$"
+                )
+        },
+        useDefaultFilters = false
+)
 public class Config {
-
-    @Bean
-    public CustomerUseCase customerUseCase(CustomerRepository customerRepository) {
-        return new CustomerUseCaseImpl(customerRepository);
-    }
-
 }
