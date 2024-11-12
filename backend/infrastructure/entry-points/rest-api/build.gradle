@@ -6,6 +6,7 @@ dependencies {
     implementation project(':domain')
     implementation project(':application')
     implementation project(':pgs-customer-db')
+    implementation project(':kafka-audit-producer')
 
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }

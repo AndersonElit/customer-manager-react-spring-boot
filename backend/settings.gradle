@@ -17,3 +17,5 @@ include 'rest-api'
 project(':rest-api').projectDir = file('infrastructure/entry-points/rest-api')
 include 'pgs-customer-db'
 project(':pgs-customer-db').projectDir = file('infrastructure/driven-adapters/pgs-customer-db')
+include 'kafka-audit-producer'
+project(':kafka-audit-producer').projectDir = file('infrastructure/driven-adapters/kafka-audit-producer')

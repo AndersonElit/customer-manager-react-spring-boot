@@ -1,9 +1,0 @@
-spring:
-  r2dbc:
-    url: r2dbc:postgresql://${DB_HOST}:5432/customer
-    username: posgres
-    password: 12345
-    pool:
-      initial-size: 5
-      max-size: 20
-      max-idle-time: 30m

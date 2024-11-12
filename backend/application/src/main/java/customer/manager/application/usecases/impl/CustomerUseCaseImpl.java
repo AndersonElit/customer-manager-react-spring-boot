@@ -1,6 +1,7 @@
 package customer.manager.application.usecases.impl;
 
 import customer.manager.application.mapper.Mapper;
+import customer.manager.domain.ports.AuditProducerRepository;
 import customer.manager.domain.request.CustomerRequest;
 import customer.manager.domain.response.CustomerResponse;
 import customer.manager.application.usecases.CustomerUseCase;
@@ -13,11 +14,16 @@ import reactor.core.publisher.Mono;
 public class CustomerUseCaseImpl implements CustomerUseCase {
 
     private final CustomerRepository customerRepository;
+    private final AuditProducerRepository auditProducerRepository;
 
     @Override
     public Mono<CustomerResponse> save(CustomerRequest customerRequest) {
         return customerRepository.save(Mapper.map(customerRequest, Customer.class))
-                .map(savedCustomer -> Mapper.map(savedCustomer, CustomerResponse.class));
+                .flatMap(savedCustomer -> auditProducerRepository.send(savedCustomer.getFirstName())
+                        .map(message -> {
+                            System.out.println(message);
+                            return Mapper.map(savedCustomer, CustomerResponse.class);
+                        }));
     }
 
 }
