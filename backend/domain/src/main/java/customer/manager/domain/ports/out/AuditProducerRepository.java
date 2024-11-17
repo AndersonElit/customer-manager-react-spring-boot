@@ -1,4 +1,4 @@
-package customer.manager.domain.ports;
+package customer.manager.domain.ports.out;
 
 import reactor.core.publisher.Mono;
 

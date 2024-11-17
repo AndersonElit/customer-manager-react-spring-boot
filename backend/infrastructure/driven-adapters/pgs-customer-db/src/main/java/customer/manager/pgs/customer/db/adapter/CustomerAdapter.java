@@ -2,7 +2,7 @@ package customer.manager.pgs.customer.db.adapter;
 
 import customer.manager.application.mapper.Mapper;
 import customer.manager.domain.model.Customer;
-import customer.manager.domain.ports.CustomerRepository;
+import customer.manager.domain.ports.out.CustomerRepository;
 import customer.manager.pgs.customer.db.entities.CustomerEntity;
 import customer.manager.pgs.customer.db.repository.PgsCustomerRepository;
 import lombok.RequiredArgsConstructor;

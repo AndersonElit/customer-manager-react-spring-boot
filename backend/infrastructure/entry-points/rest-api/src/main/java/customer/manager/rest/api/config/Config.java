@@ -10,7 +10,7 @@ import org.springframework.context.annotation.FilterType;
         includeFilters = {
                 @ComponentScan.Filter(
                         type = FilterType.REGEX,
-                        pattern = ".*UseCaseImpl?$"
+                        pattern = ".*UseCase?$"
                 )
         },
         useDefaultFilters = false

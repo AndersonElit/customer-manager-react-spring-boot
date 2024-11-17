@@ -1,7 +1,7 @@
 package customer.manager.rest.api.controller.handler;
 
 import customer.manager.domain.request.CustomerRequest;
-import customer.manager.application.usecases.CustomerUseCase;
+import customer.manager.domain.ports.in.CustomerPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CustomerHandler {
 
-    private final CustomerUseCase customerUseCase;
+    private final CustomerPort customerPort;
 
     public Mono<ServerResponse> save(ServerRequest request) {
         return request.bodyToMono(CustomerRequest.class)
-                .flatMap(customerUseCase::save)
+                .flatMap(customerPort::save)
                 .flatMap(customerResponse -> ServerResponse
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)

@@ -1,6 +1,6 @@
 package customer.manager.kafka.audit.producer.adapter;
 
-import customer.manager.domain.ports.AuditProducerRepository;
+import customer.manager.domain.ports.out.AuditProducerRepository;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
