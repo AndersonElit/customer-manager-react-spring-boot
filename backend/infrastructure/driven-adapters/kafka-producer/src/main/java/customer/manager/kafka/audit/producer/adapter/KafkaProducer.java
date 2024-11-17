@@ -1,6 +1,6 @@
 package customer.manager.kafka.audit.producer.adapter;
 
-import customer.manager.domain.ports.out.AuditProducerRepository;
+import customer.manager.domain.ports.out.KafkaProducerRepository;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AuditProducerAdapter implements AuditProducerRepository {
+public class KafkaProducer implements KafkaProducerRepository {
 
     private final KafkaSender<String, String> sender;
-    private final String topic;
 
-    public AuditProducerAdapter(@Value("${spring.kafka.bootstrap-servers}") String bootstrapServers,
-                            @Value("${spring.kafka.topic}") String topic) {
+    public KafkaProducer(@Value("${spring.kafka.bootstrap-servers}") String bootstrapServers) {
 
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -30,11 +28,10 @@ public class AuditProducerAdapter implements AuditProducerRepository {
 
         SenderOptions<String, String> senderOptions = SenderOptions.create(props);
         this.sender = KafkaSender.create(senderOptions);
-        this.topic = topic;
     }
 
     @Override
-    public Mono<String> send(String message) {
+    public Mono<String> send(String topic, String message) {
         return sender.send(Mono.just(SenderRecord.create(topic, null, null, null, message, null)))
                 .next()
                 .map(result -> String.format(

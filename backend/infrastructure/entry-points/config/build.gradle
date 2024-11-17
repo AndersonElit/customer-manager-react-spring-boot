@@ -5,7 +5,7 @@ plugins {
 dependencies {
     implementation project(':rest-api')
     implementation project(':pgs-customer-db')
-    implementation project(':kafka-audit-producer')
+    implementation project(':kafka-producer')
 }
 
 bootJar {

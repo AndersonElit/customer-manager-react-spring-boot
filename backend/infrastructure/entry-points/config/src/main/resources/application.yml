@@ -5,7 +5,6 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    topic: audit-topic
 
   r2dbc:
     url: r2dbc:postgresql://${DB_HOST}:5432/customer
