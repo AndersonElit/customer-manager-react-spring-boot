@@ -35,14 +35,14 @@ tasks.register('startProject') {
     description = 'Starts the Spring Boot application'
 }
 
-startProject.finalizedBy(':rest-api:bootRun')
+startProject.finalizedBy(':config:bootRun')
 
 tasks.register('buildProject') {
     group = 'application'
     description = 'conpile the project'
 }
 
-buildProject.finalizedBy(':rest-api:build')
+buildProject.finalizedBy(':config:build')
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'

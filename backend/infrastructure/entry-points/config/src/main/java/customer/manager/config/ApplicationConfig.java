@@ -1,4 +1,4 @@
-package customer.manager.rest.api.config;
+package customer.manager.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,10 @@ import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
-        basePackages = "customer.manager.application.usecases",
+        basePackages = {
+                "customer.manager.application.usecases",
+                "customer.manager.rest.api"
+        },
         includeFilters = {
                 @ComponentScan.Filter(
                         type = FilterType.REGEX,
@@ -15,5 +18,5 @@ import org.springframework.context.annotation.FilterType;
         },
         useDefaultFilters = false
 )
-public class Config {
+public class ApplicationConfig {
 }

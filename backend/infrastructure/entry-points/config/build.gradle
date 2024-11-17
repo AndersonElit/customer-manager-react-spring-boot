@@ -1,0 +1,19 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':application')
+    implementation project(':rest-api')
+    implementation project(':pgs-customer-db')
+    implementation project(':kafka-audit-producer')
+}
+
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = true
+}
