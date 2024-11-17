@@ -6,6 +6,7 @@ dependencies {
     implementation project(':rest-api')
     implementation project(':pgs-customer-db')
     implementation project(':kafka-producer')
+    implementation project(':kafka-consumer')
 }
 
 bootJar {

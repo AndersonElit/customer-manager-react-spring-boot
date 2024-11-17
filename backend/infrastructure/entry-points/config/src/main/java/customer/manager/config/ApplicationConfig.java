@@ -8,7 +8,8 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(
         basePackages = {
                 "customer.manager.application.usecases",
-                "customer.manager.rest.api"
+                "customer.manager.rest.api",
+                "customer.manager.kafka.consumer"
         },
         includeFilters = {
                 @ComponentScan.Filter(

@@ -21,3 +21,5 @@ include 'pgs-customer-db'
 project(':pgs-customer-db').projectDir = file('infrastructure/driven-adapters/pgs-customer-db')
 include 'kafka-producer'
 project(':kafka-producer').projectDir = file('infrastructure/driven-adapters/kafka-producer')
+include 'kafka-consumer'
+project(':kafka-consumer').projectDir = file('infrastructure/entry-points/kafka-consumer')
