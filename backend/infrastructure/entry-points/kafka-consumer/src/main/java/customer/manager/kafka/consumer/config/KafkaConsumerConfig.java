@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Configuration
 @EnableConfigurationProperties(KafkaProperties.class)
-public class KafkaConfig {
+public class KafkaConsumerConfig {
 
     @Bean
     public ReceiverOptions<String, String> kafkaReceiverOptions(KafkaProperties kafkaProperties) {
