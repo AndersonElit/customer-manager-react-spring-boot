@@ -12,11 +12,13 @@ import reactor.kafka.sender.SenderRecord;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Service
 public class KafkaProducer implements KafkaProducerRepository {
 
     private final KafkaSender<String, String> sender;
+    private static final Logger logger = Logger.getLogger(KafkaProducer.class.getName());
 
     public KafkaProducer(@Value("${spring.kafka.bootstrap-servers}") String bootstrapServers) {
 
@@ -32,6 +34,7 @@ public class KafkaProducer implements KafkaProducerRepository {
 
     @Override
     public Mono<String> send(String topic, String message) {
+        logger.info("Sending message: " + message);
         return sender.send(Mono.just(SenderRecord.create(topic, null, null, null, message, null)))
                 .next()
                 .map(result -> String.format(

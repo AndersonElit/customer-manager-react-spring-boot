@@ -10,6 +10,7 @@ import reactor.kafka.receiver.ReceiverOptions;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Component
 @RequiredArgsConstructor
@@ -17,8 +18,10 @@ public class KafkaAuditConsumer {
 
     private final Map<String, Object> kafkaConsumerProps;
     private final AuditPort auditPort;
+    private static final Logger logger = Logger.getLogger(KafkaAuditConsumer.class.getName());
 
     public Mono<Void> consume() {
+        logger.info("Consuming audit messages");
         ReceiverOptions<String, String> receiverOptions = ReceiverOptions
                 .<String, String>create(kafkaConsumerProps)
                 .subscription(Collections.singleton("audit-topic"));
@@ -27,8 +30,9 @@ public class KafkaAuditConsumer {
 
         return receiver.receive()
                 .map(ConsumerRecord::value)
-                .last()
                 .doOnNext(System.out::println)
+                .last()
+                .doOnNext(message -> logger.info("Consumed most recent audit message: " + message))
                 .flatMap(auditPort::audit);
     }
 }

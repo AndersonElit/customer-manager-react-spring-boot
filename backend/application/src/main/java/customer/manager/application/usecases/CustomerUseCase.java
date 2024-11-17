@@ -10,14 +10,18 @@ import customer.manager.domain.ports.out.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import java.util.logging.Logger;
+
 @RequiredArgsConstructor
 public class CustomerUseCase implements CustomerPort {
 
     private final CustomerRepository customerRepository;
     private final KafkaProducerRepository auditProducerRepository;
+    private static final Logger logger = Logger.getLogger(CustomerUseCase.class.getName());
 
     @Override
     public Mono<CustomerResponse> save(CustomerRequest customerRequest) {
+        logger.info("Saving customer: " + customerRequest.toString());
         return customerRepository.save(Mapper.map(customerRequest, Customer.class))
                 .flatMap(savedCustomer -> auditProducerRepository.send("audit-topic", savedCustomer.getFirstName())
                         .map(message -> {
