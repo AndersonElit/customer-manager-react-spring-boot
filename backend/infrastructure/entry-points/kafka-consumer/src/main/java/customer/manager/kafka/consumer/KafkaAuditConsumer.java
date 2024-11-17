@@ -6,31 +6,28 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import reactor.core.scheduler.Schedulers;
+import reactor.core.publisher.Flux;
 import reactor.kafka.receiver.KafkaReceiver;
+import reactor.kafka.receiver.ReceiverOptions;
 
-import java.util.logging.Level;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 @Component
 @RequiredArgsConstructor
 public class KafkaAuditConsumer {
 
-    private final KafkaReceiver<String, String> receiver;
+    private final ReceiverOptions<String, String> receiverOptions;
     private final AuditPort auditPort;
     private static final Logger logger = Logger.getLogger(KafkaAuditConsumer.class.getName());
 
     @EventListener(ApplicationStartedEvent.class)
-    public void startConsumer() {
+    public Flux<Void> consume() {
         logger.info("Starting Kafka consumer for audit messages");
 
-        receiver.receive()
+        return KafkaReceiver.create(receiverOptions.subscription(Collections.singleton("audit-topic")))
+                .receive()
                 .map(ConsumerRecord::value)
-                .flatMap(auditPort::audit)
-                .doOnNext(unused -> logger.info("Message processed successfully"))
-                .doOnError(error -> logger.log(Level.SEVERE, "Error processing message", error))
-                .onErrorContinue((error, obj) -> logger.log(Level.SEVERE, "Continuing after error", error))
-                .subscribeOn(Schedulers.boundedElastic())
-                .subscribe();
+                .flatMap(auditPort::audit);
     }
 }
