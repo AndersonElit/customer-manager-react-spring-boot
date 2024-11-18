@@ -17,7 +17,7 @@ public class CustomerEventUseCase implements CustomerEventPort {
 
     @Override
     public Mono<Void> consume(String message) {
-        logger.info("message consumed from usecase: " + message);
+        logger.info("message consumed from CustomerEventUseCase: " + message);
         return Mono.just(message)
                 .map(m -> ObjectStringConverter.toObject(m, Customer.class))
                 .flatMap(customerEventRepository::save)

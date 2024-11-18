@@ -11,7 +11,7 @@ public class AuditUseCase implements AuditPort {
 
     @Override
     public Mono<Void> audit(String message) {
-        logger.info("message consumed from usecase: " + message);
+        logger.info("message consumed from AuditUseCase: " + message);
         return Mono.just( message).doOnNext(System.out::println)
                 .then();
     }
