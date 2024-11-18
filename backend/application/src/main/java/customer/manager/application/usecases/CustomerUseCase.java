@@ -1,7 +1,7 @@
 package customer.manager.application.usecases;
 
 import customer.manager.application.mapper.Mapper;
-import customer.manager.application.utils.ObjectStringConverter;
+import customer.manager.application.utils.CustomerObjectsConverter;
 import customer.manager.domain.ports.out.KafkaProducerRepository;
 import customer.manager.domain.request.CustomerRequest;
 import customer.manager.domain.response.CustomerResponse;
@@ -24,8 +24,8 @@ public class CustomerUseCase implements CustomerPort {
     public Mono<CustomerResponse> save(CustomerRequest customerRequest) {
         logger.info("Saving customer: " + customerRequest.toString());
         return customerRepository.save(Mapper.map(customerRequest, Customer.class))
-                .flatMap(savedCustomer -> kafkaProducerRepository.send("audit-topic", ObjectStringConverter.toString(savedCustomer))
-                        .flatMap(message -> kafkaProducerRepository.send("mongo-topic", ObjectStringConverter.toString(savedCustomer)))
+                .flatMap(savedCustomer -> kafkaProducerRepository.send("audit-topic", CustomerObjectsConverter.convertEventToString(savedCustomer, "CREATE"))
+                        .flatMap(message -> kafkaProducerRepository.send("mongo-topic", CustomerObjectsConverter.convertEventToString(savedCustomer, "CREATE")))
                         .map(message -> {
                             System.out.println(message);
                             return Mapper.map(savedCustomer, CustomerResponse.class);

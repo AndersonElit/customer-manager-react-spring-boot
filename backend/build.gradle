@@ -22,7 +22,7 @@ subprojects {
         implementation 'org.springframework:spring-context'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
-
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.1'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         implementation 'io.projectreactor:reactor-core'
         implementation 'io.projectreactor:reactor-test'

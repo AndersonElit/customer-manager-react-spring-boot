@@ -1,12 +1,10 @@
 package customer.manager.application.usecases;
 
-import customer.manager.application.utils.ObjectStringConverter;
-import customer.manager.domain.model.Customer;
+import customer.manager.application.utils.CustomerObjectsConverter;
 import customer.manager.domain.ports.in.CustomerEventPort;
 import customer.manager.domain.ports.out.CustomerEventRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
-
 import java.util.logging.Logger;
 
 @RequiredArgsConstructor
@@ -19,7 +17,8 @@ public class CustomerEventUseCase implements CustomerEventPort {
     public Mono<Void> consume(String message) {
         logger.info("message consumed from CustomerEventUseCase: " + message);
         return Mono.just(message)
-                .map(m -> ObjectStringConverter.toObject(m, Customer.class))
+                .map(CustomerObjectsConverter::convertStringToEvent)
+                .map(CustomerObjectsConverter::getCustomerFromEventPayload)
                 .flatMap(customerEventRepository::save)
                 .then();
     }
