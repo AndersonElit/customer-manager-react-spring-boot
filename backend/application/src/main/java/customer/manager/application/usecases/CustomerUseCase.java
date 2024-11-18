@@ -25,6 +25,7 @@ public class CustomerUseCase implements CustomerPort {
         logger.info("Saving customer: " + customerRequest.toString());
         return customerRepository.save(Mapper.map(customerRequest, Customer.class))
                 .flatMap(savedCustomer -> kafkaProducerRepository.send("audit-topic", ObjectStringConverter.toString(savedCustomer))
+                        .flatMap(message -> kafkaProducerRepository.send("mongo-topic", ObjectStringConverter.toString(savedCustomer)))
                         .map(message -> {
                             System.out.println(message);
                             return Mapper.map(savedCustomer, CustomerResponse.class);

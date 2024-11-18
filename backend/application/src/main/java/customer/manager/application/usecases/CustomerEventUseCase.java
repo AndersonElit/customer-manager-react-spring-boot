@@ -3,12 +3,16 @@ package customer.manager.application.usecases;
 import customer.manager.application.utils.ObjectStringConverter;
 import customer.manager.domain.model.Customer;
 import customer.manager.domain.ports.in.CustomerEventPort;
+import customer.manager.domain.ports.out.CustomerEventRepository;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 import java.util.logging.Logger;
 
+@RequiredArgsConstructor
 public class CustomerEventUseCase implements CustomerEventPort {
 
+    private final CustomerEventRepository customerEventRepository;
     private static final Logger logger = Logger.getLogger(CustomerEventUseCase.class.getName());
 
     @Override
@@ -16,6 +20,7 @@ public class CustomerEventUseCase implements CustomerEventPort {
         logger.info("message consumed from usecase: " + message);
         return Mono.just(message)
                 .map(m -> ObjectStringConverter.toObject(m, Customer.class))
+                .flatMap(customerEventRepository::save)
                 .then();
     }
 }
